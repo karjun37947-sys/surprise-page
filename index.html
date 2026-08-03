@@ -2,7 +2,7 @@
     <!DOCTYPE html>
 <html>
 <head>
-<title>Brother Surprise</title>
+<title>Chudail Surprise 👻</title>
 
 <style>
 body{
@@ -11,33 +11,36 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    background:radial-gradient(circle,#2b0033,#000);
+    color:white;
     font-family:Arial,sans-serif;
-    text-align:center;
+    overflow:hidden;
 }
 
 .box{
-    background:white;
+    text-align:center;
+    background:rgba(255,255,255,0.1);
     padding:30px;
     border-radius:20px;
-    box-shadow:0 0 20px rgba(0,0,0,0.2);
-}
-
-#timer{
-    font-size:50px;
-    color:#ff4b5c;
+    box-shadow:0 0 25px purple;
 }
 
 h1{
-    color:#333;
+    color:#ff4dff;
+    text-shadow:0 0 15px red;
+}
+
+#timer{
+    font-size:60px;
+    color:#ff0000;
 }
 
 button{
     padding:12px 30px;
     margin:10px;
-    font-size:18px;
     border:none;
-    border-radius:10px;
+    border-radius:15px;
+    font-size:18px;
     cursor:pointer;
 }
 
@@ -50,7 +53,17 @@ button{
     background:red;
     color:white;
     position:absolute;
-    display:none;
+}
+
+.ghost{
+    font-size:60px;
+    animation:float 2s infinite;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-20px);
+    }
 }
 </style>
 
@@ -60,13 +73,15 @@ button{
 
 <div class="box">
 
-<h1 id="message">Please wait...</h1>
+<div class="ghost">👻</div>
+
+<h1 id="question">Chudail is coming...</h1>
 
 <div id="timer">4</div>
 
 <div id="buttons" style="display:none;">
-    <button id="yes">Yes ❤️</button>
-    <button id="no">No 😅</button>
+<button id="yes">Yes 😈</button>
+<button id="no">No 😅</button>
 </div>
 
 </div>
@@ -74,53 +89,76 @@ button{
 
 <script>
 
-let time = 4;
+let count=4;
 
-let countdown = setInterval(function(){
+let countdown=setInterval(()=>{
 
-    time--;
+count--;
 
-    document.getElementById("timer").innerHTML = time;
+document.getElementById("timer").innerHTML=count;
 
-    if(time <= 0){
+if(count<=0){
 
-        clearInterval(countdown);
+clearInterval(countdown);
 
-        document.getElementById("timer").style.display="none";
+document.getElementById("timer").style.display="none";
 
-        document.getElementById("message").innerHTML =
-        "Are you my brother? ❤️";
+showQuestion();
 
-        document.getElementById("buttons").style.display="block";
-
-        document.getElementById("no").style.display="inline-block";
-    }
+}
 
 },1000);
 
 
-
-let noButton = document.getElementById("no");
-
-noButton.addEventListener("mouseover",function(){
-
-    let x = Math.random() * (window.innerWidth - 100);
-    let y = Math.random() * (window.innerHeight - 50);
-
-    noButton.style.left = x + "px";
-    noButton.style.top = y + "px";
-
-});
+let questions=[
+"Are you a Chudail? 👻",
+"Are you a Bhootni? 🧟‍♀️",
+"Did you like this surprise? ❤️"
+];
 
 
-document.getElementById("yes").onclick=function(){
+let index=0;
 
-    document.getElementById("message").innerHTML =
-    "Yay! ❤️ I knew it!";
 
-    document.getElementById("buttons").style.display="none";
+function showQuestion(){
+
+document.getElementById("question").innerHTML=
+questions[index];
+
+document.getElementById("buttons").style.display="block";
 
 }
+
+
+yes.onclick=function(){
+
+index++;
+
+if(index < questions.length){
+
+showQuestion();
+
+}else{
+
+document.getElementById("question").innerHTML=
+"Thank you 😄👻";
+
+document.getElementById("buttons").style.display="none";
+
+}
+
+};
+
+
+no.onmouseover=function(){
+
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
+
+no.style.left=x+"px";
+no.style.top=y+"px";
+
+};
 
 </script>
 
