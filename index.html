@@ -1,133 +1,128 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Chudail Surprise 👻</title>
 
 <style>
 body{
-    height:100vh;
-    margin:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:radial-gradient(circle,#2b0033,#000);
-    color:white;
-    font-family:Arial,sans-serif;
-    overflow:hidden;
+height:100vh;
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#120018;
+font-family:Arial;
+color:white;
+overflow:hidden;
 }
 
 .box{
-    text-align:center;
-    background:rgba(255,255,255,0.1);
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 0 25px purple;
+text-align:center;
+background:#250033;
+padding:35px;
+border-radius:20px;
+box-shadow:0 0 30px purple;
 }
 
-h1{
-    color:#ff4dff;
-    text-shadow:0 0 15px red;
-}
-
-#timer{
-    font-size:60px;
-    color:#ff0000;
+#count{
+font-size:60px;
+color:red;
 }
 
 button{
-    padding:12px 30px;
-    margin:10px;
-    border:none;
-    border-radius:15px;
-    font-size:18px;
-    cursor:pointer;
+padding:12px 30px;
+margin:10px;
+font-size:18px;
+border:none;
+border-radius:12px;
+cursor:pointer;
 }
 
 #yes{
-    background:green;
-    color:white;
+background:green;
+color:white;
 }
 
 #no{
-    background:red;
-    color:white;
-    position:absolute;
+background:red;
+color:white;
+position:absolute;
+transition:0.2s;
 }
 
-.ghost{
-    font-size:60px;
-    animation:float 2s infinite;
+#final{
+font-size:25px;
+color:#ff99ff;
 }
 
-@keyframes float{
-    50%{
-        transform:translateY(-20px);
-    }
-}
 </style>
-
 </head>
 
 <body>
 
 <div class="box">
 
-<div class="ghost">👻</div>
+<h1 id="question">👻 Loading...</h1>
 
-<h1 id="question">Chudail is coming...</h1>
-
-<div id="timer">4</div>
+<div id="count">3</div>
 
 <div id="buttons" style="display:none;">
-<button id="yes">Yes 😈</button>
+<button id="yes">Yes ❤️</button>
 <button id="no">No 😅</button>
 </div>
+
+<div id="final"></div>
 
 </div>
 
 
 <script>
 
-let count=4;
+let questions=[
+"Are you a Chudail? 👻",
+"Are you a Baunii? 😈",
+"How did you like my surprise? ❤️"
+];
 
-let countdown=setInterval(()=>{
+let index=0;
 
-count--;
 
-document.getElementById("timer").innerHTML=count;
+function countdown(){
 
-if(count<=0){
+let t=3;
 
-clearInterval(countdown);
+count.style.display="block";
+buttons.style.display="none";
 
-document.getElementById("timer").style.display="none";
 
+let timer=setInterval(()=>{
+
+count.innerHTML=t;
+t--;
+
+if(t<0){
+
+clearInterval(timer);
 showQuestion();
 
 }
 
 },1000);
 
+}
 
-let questions=[
-"Are you a Chudail? 👻",
-"Are you a Bhootni? 🧟‍♀️",
-"Did you like this surprise? ❤️"
-];
-
-
-let index=0;
 
 
 function showQuestion(){
 
-document.getElementById("question").innerHTML=
-questions[index];
+count.style.display="none";
 
-document.getElementById("buttons").style.display="block";
+question.innerHTML=questions[index];
+
+buttons.style.display="block";
 
 }
+
 
 
 yes.onclick=function(){
@@ -136,29 +131,43 @@ index++;
 
 if(index < questions.length){
 
-showQuestion();
+countdown();
 
 }else{
 
-document.getElementById("question").innerHTML=
-"Thank you 😄👻";
+question.innerHTML="🎉 Surprise Completed 👻";
 
-document.getElementById("buttons").style.display="none";
+final.innerHTML="❤️ Thank you!";
+
+buttons.style.display="none";
 
 }
 
 };
 
 
-no.onmouseover=function(){
 
-let x=Math.random()*(window.innerWidth-100);
-let y=Math.random()*(window.innerHeight-50);
+// No button keeps moving
+
+function moveNo(){
+
+let x=Math.random()*(window.innerWidth-120);
+let y=Math.random()*(window.innerHeight-80);
 
 no.style.left=x+"px";
 no.style.top=y+"px";
 
-};
+}
+
+
+no.addEventListener("mouseover",moveNo);
+
+no.addEventListener("click",moveNo);
+
+no.addEventListener("touchstart",moveNo);
+
+
+countdown();
 
 </script>
 
